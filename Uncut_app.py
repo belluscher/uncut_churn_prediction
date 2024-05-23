@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
 import pickle as p
-from sklearn.datasets import  fetch_california_housing
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -16,6 +15,7 @@ from sklearn.metrics import precision_score, recall_score
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import confusion_matrix, classification_report
 from datetime import datetime, timedelta
+from sklearn.preprocessing import MinMaxScaler, StandardScaler, RobustScaler
 
 st.title("Churn prediction")
 
@@ -34,7 +34,6 @@ uncut_clean['is_churned'] = (current_date - Last_Logged_In_At) > timedelta(days=
 target = uncut_clean["is_churned"]
 features = uncut_clean[["Uncut Collectors #", "Followers #", "ArtX Balance", "ArtX Total Earned", "signup_lastlogin"]]
 X_train, X_test, y_train, y_test = train_test_split(features, target, test_size = 0.20, random_state = 0)
-from sklearn.preprocessing import MinMaxScaler, StandardScaler, RobustScaler
 normalizer = RobustScaler()
 normalizer.fit(X_train)
 X_train_norm = normalizer.transform(X_train)
